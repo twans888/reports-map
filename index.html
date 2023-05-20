@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="data/Property_1.js"></script>
+        <script src="data/Servicerequest_2.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+            highlightLayer.openPopup();
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[-33.98699196513804,18.458021202019594],[-33.97261710327643,18.48097399679372]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        var layer_OSMStandard_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            opacity: 1.0,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+        });
+        layer_OSMStandard_0;
+        map.addLayer(layer_OSMStandard_0);
+        function pop_Property_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">SG26 Code</th>\
+                        <td>' + (feature.properties['SG26_CODE'] !== null ? Autolinker.link(String(feature.properties['SG26_CODE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ISIS Key</th>\
+                        <td>' + (feature.properties['SL_LAND_PR'] !== null ? Autolinker.link(String(feature.properties['SL_LAND_PR'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Address Number</th>\
+                        <td>' + (feature.properties['ADR_NO'] !== null ? Autolinker.link(String(feature.properties['ADR_NO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Adress Number Suffix</th>\
+                        <td>' + (feature.properties['ADR_NO_SFX'] !== null ? Autolinker.link(String(feature.properties['ADR_NO_SFX'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Street Name</th>\
+                        <td>' + (feature.properties['STR_NAME'] !== null ? Autolinker.link(String(feature.properties['STR_NAME'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Street Name Type</th>\
+                        <td>' + (feature.properties['LU_STR_NAM'] !== null ? Autolinker.link(String(feature.properties['LU_STR_NAM'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Surburb</th>\
+                        <td>' + (feature.properties['OFC_SBRB_N'] !== null ? Autolinker.link(String(feature.properties['OFC_SBRB_N'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Property Number</th>\
+                        <td>' + (feature.properties['PRTY_NMBR'] !== null ? Autolinker.link(String(feature.properties['PRTY_NMBR'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Zoning</th>\
+                        <td>' + (feature.properties['ZONING'] !== null ? Autolinker.link(String(feature.properties['ZONING'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Property_1_0() {
+            return {
+                pane: 'pane_Property_1',
+                opacity: 1,
+                color: 'rgba(165,165,165,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+            }
+        }
+        map.createPane('pane_Property_1');
+        map.getPane('pane_Property_1').style.zIndex = 401;
+        map.getPane('pane_Property_1').style['mix-blend-mode'] = 'normal';
+        var layer_Property_1 = new L.geoJson(json_Property_1, {
+            attribution: '',
+            pane: 'pane_Property_1',
+            onEachFeature: pop_Property_1,
+            style: style_Property_1_0,
+        });
+        bounds_group.addLayer(layer_Property_1);
+        map.addLayer(layer_Property_1);
+        function pop_Servicerequest_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Sub-Council</th>\
+                        <td>' + (feature.properties['Sub_Counci'] !== null ? Autolinker.link(String(feature.properties['Sub_Counci'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Ward</th>\
+                        <td>' + (feature.properties['Ward'] !== null ? Autolinker.link(String(feature.properties['Ward'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Suburb</th>\
+                        <td>' + (feature.properties['Suburb'] !== null ? Autolinker.link(String(feature.properties['Suburb'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Complaint Type</th>\
+                        <td>' + (feature.properties['C3_Complai'] !== null ? Autolinker.link(String(feature.properties['C3_Complai'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Work Center</th>\
+                        <td>' + (feature.properties['Work_Cente'] !== null ? Autolinker.link(String(feature.properties['Work_Cente'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Notification Number</th>\
+                        <td>' + (feature.properties['Notificati'] !== null ? Autolinker.link(String(feature.properties['Notificati'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">X-Coordinate</th>\
+                        <td>' + (feature.properties['X_Y_Coordi'] !== null ? Autolinker.link(String(feature.properties['X_Y_Coordi'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Y-Coordinate</th>\
+                        <td>' + (feature.properties['X_Y_Coor_1'] !== null ? Autolinker.link(String(feature.properties['X_Y_Coor_1'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Report Date</th>\
+                        <td>' + (feature.properties['Created_On'] !== null ? Autolinker.link(String(feature.properties['Created_On'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Maintenance Report</th>\
+                        <td>' + (feature.properties['MAINTANANC'] !== null ? Autolinker.link(String(feature.properties['MAINTANANC'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Maintenance Level</th>\
+                        <td>' + (feature.properties['MAINTANA_1'] !== null ? Autolinker.link(String(feature.properties['MAINTANA_1'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Servicerequest_2_0(feature) {
+            switch(String(feature.properties['MAINTANANC'])) {
+                case 'Attended':
+                    return {
+                pane: 'pane_Servicerequest_2',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/location-blue-pin-marker-sign-15637.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+                    break;
+                case 'Fixed':
+                    return {
+                pane: 'pane_Servicerequest_2',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/location-black-pin-sign-and-circle-15634.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+                    break;
+                case 'Not yet attended':
+                    return {
+                pane: 'pane_Servicerequest_2',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/location-pink-pin-sign-and-yellow-circle-15633.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+                    break;
+                case 'On-going':
+                    return {
+                pane: 'pane_Servicerequest_2',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/location-red-pin-marker-sign-15636.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Servicerequest_2');
+        map.getPane('pane_Servicerequest_2').style.zIndex = 402;
+        map.getPane('pane_Servicerequest_2').style['mix-blend-mode'] = 'normal';
+        var layer_Servicerequest_2 = new L.geoJson(json_Servicerequest_2, {
+            attribution: '',
+            pane: 'pane_Servicerequest_2',
+            onEachFeature: pop_Servicerequest_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_Servicerequest_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Servicerequest_2);
+        map.addLayer(layer_Servicerequest_2);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'Service request<br /><table><tr><td style="text-align: center;"><img src="legend/Servicerequest_2_Attended0.png" /></td><td>Attended</td></tr><tr><td style="text-align: center;"><img src="legend/Servicerequest_2_Fixed1.png" /></td><td>Fixed</td></tr><tr><td style="text-align: center;"><img src="legend/Servicerequest_2_Notyetattended2.png" /></td><td>Not yet attended</td></tr><tr><td style="text-align: center;"><img src="legend/Servicerequest_2_Ongoing3.png" /></td><td>On-going</td></tr></table>': layer_Servicerequest_2,'<img src="legend/Property_1.png" /> Property': layer_Property_1,"OSM Standard": layer_OSMStandard_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
